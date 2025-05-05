@@ -1033,8 +1033,15 @@ void ClientEndServerFrame (edict_t *ent)
 	if (current_client->ps.pmove.pm_flags & PMF_DUCKED)
 		bobtime *= 4;
 
-	bobcycle = (int)bobtime;
-	bobfracsin = fabs(sin(bobtime*M_PI));
+	if (isSliding) {
+		bobcycle = 0;
+		bobfracsin = 0.0f;
+	}
+	
+	else {
+		bobcycle = (int)bobtime;
+		bobfracsin = fabs(sin(bobtime * M_PI));
+	}
 
 	// detect hitting the floor
 	P_FallingDamage (ent);

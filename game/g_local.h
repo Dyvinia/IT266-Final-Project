@@ -458,6 +458,9 @@ extern	spawn_temp_t	st;
 extern	int	sm_meat_index;
 extern	int	snd_fry;
 
+extern	int	wasCrouched;
+extern	int	isSliding;
+
 extern	int	jacket_armor_index;
 extern	int	combat_armor_index;
 extern	int	body_armor_index;

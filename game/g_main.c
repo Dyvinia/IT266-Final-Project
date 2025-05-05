@@ -30,6 +30,9 @@ int	sm_meat_index;
 int	snd_fry;
 int meansOfDeath;
 
+int wasCrouched = 0;
+int isSliding = 0;
+
 edict_t		*g_edicts;
 
 cvar_t	*deathmatch;
@@ -400,6 +403,42 @@ void G_RunFrame (void)
 		}
 
 		G_RunEntity (ent);
+	}
+
+	edict_t* player = &g_edicts[1];
+	if (player->inuse && player->client) {
+		int isCrouched = (player->client->ps.pmove.pm_flags & PMF_DUCKED) != 0;
+		float speed = sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]);
+
+		// sliding
+		if (speed > 100 && isCrouched && !wasCrouched && player->groundentity) {
+			isSliding = 1;
+			player->velocity[0] += player->velocity[0] / speed * 800;
+			player->velocity[1] += player->velocity[1] / speed * 800;
+		}
+		// reduce the effect of friction
+		if (isSliding) {
+			player->velocity[0] *= 1.25f;
+			player->velocity[1] *= 1.25f;
+			player->velocity[2] *= 1.25f;
+		}
+
+		if ((sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]) < 120 && isSliding) || !isCrouched) {
+			isSliding = 0;
+		}
+		wasCrouched = isCrouched;
+
+		// "debug" text
+		char text[256];
+		Com_sprintf(text, sizeof(text),
+			"Speed: %.2f\n"
+			"Vel: %.2f, %.2f, %.2f\n"
+			"isSliding: %s\n",
+			speed, 
+			player->velocity[0], player->velocity[1], player->velocity[2],
+			isSliding ? "true" : "false"
+		);
+		gi.centerprintf(player, "%s\n", text);
 	}
 
 	// see if it is time to end a deathmatch
