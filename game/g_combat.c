@@ -409,6 +409,10 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 			damage = 1;
 	}
 
+	if (attacker && attacker->client && targ != attacker && targ->takedamage) {
+		attacker->client->damageDealt += damage;
+	}
+
 	client = targ->client;
 
 	if (dflags & DAMAGE_BULLET)

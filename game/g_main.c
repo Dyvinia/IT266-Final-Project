@@ -432,11 +432,13 @@ void G_RunFrame (void)
 		char text[256];
 		Com_sprintf(text, sizeof(text),
 			"Speed: %.2f\n"
-			"Vel: %.2f, %.2f, %.2f\n"
-			"isSliding: %s\n",
-			speed, 
+			"Vel: %.2f %.2f %.2f\n"
+			"isSliding: %s\n"
+			"Damage: %d\n",
+			speed,
 			player->velocity[0], player->velocity[1], player->velocity[2],
-			isSliding ? "true" : "false"
+			isSliding ? "true" : "false",
+			player->client->damageDealt
 		);
 		gi.centerprintf(player, "%s\n", text);
 	}
