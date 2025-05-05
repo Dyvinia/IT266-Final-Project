@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerCommand>G:\Games\Quake2\Quake II\quake2.exe </LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>G:\Games\Quake2\Quake II</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerAttach>false</LocalDebuggerAttach>
+    <LocalDebuggerCommandArguments>+set game modtest -skipmovies</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>G:\Games\Quake2\Quake II\quake2.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommandArguments>+set game modtest -skipmovies
+</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>G:\Games\Quake2\Quake II</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>
