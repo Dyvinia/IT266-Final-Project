@@ -10,7 +10,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>G:\Games\Quake2\Quake II\quake2.exe</LocalDebuggerCommand>
     <LocalDebuggerCommandArguments>+set game modtest -skipmovies
-</LocalDebuggerCommandArguments>
+ +map base1 +set skill 1</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>G:\Games\Quake2\Quake II</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
