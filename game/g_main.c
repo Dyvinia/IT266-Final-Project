@@ -411,13 +411,14 @@ void G_RunFrame (void)
 		float speed = sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]);
 
 		// sliding
-		if (speed > 190 && isCrouched && !wasCrouched && player->groundentity) {
+		if (speed > 175 && isCrouched && !wasCrouched && player->groundentity) {
 			isSliding = 1;
 			player->velocity[0] += player->velocity[0] / speed * 450;
 			player->velocity[1] += player->velocity[1] / speed * 450;
+			player->velocity[2] = 0;
 		}
 		// reduce the effect of friction
-		if (isSliding) {
+		if (isSliding && player->groundentity) {
 			player->velocity[0] *= 1.45f;
 			player->velocity[1] *= 1.45f;
 		}
