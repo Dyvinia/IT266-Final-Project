@@ -428,17 +428,42 @@ void G_RunFrame (void)
 		}
 		wasCrouched = isCrouched;
 
+		// evo
+		int evoLevel = 0;
+		int evoToNext = 0;
+		if (player->client->damageDealt < 50) { // none
+			evoLevel = 0;
+			evoToNext = 50 - player->client->damageDealt;
+		}
+		else if (player->client->damageDealt < 150) { // white
+			evoLevel = 1;
+			evoToNext = 150 - player->client->damageDealt;
+		}
+		else if (player->client->damageDealt < 300) { // blue
+			evoLevel = 2;
+			evoToNext = 300 - player->client->damageDealt;
+		}
+		else { // purple
+			evoLevel = 3;
+			evoToNext = -1;
+		}
+
 		// "debug" text
 		char text[256];
 		Com_sprintf(text, sizeof(text),
 			"Speed: %.2f\n"
-			"Vel: %.2f %.2f %.2f\n"
+			"Vel: %.2f, %.2f, %.2f\n"
 			"isSliding: %s\n"
-			"Damage: %d\n",
+			"Damage: %d\n"
+			"Evo Lv: %d  Next: %d\n",
 			speed,
-			player->velocity[0], player->velocity[1], player->velocity[2],
+			player->velocity[0],
+			player->velocity[1],
+			player->velocity[2],
 			isSliding ? "true" : "false",
-			player->client->damageDealt
+			player->client->damageDealt,
+			evoLevel,
+			evoToNext
 		);
 		gi.centerprintf(player, "%s\n", text);
 	}
