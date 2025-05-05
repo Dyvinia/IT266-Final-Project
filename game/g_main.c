@@ -434,18 +434,22 @@ void G_RunFrame (void)
 		if (player->client->damageDealt < 50) { // none
 			evoLevel = 0;
 			evoToNext = 50 - player->client->damageDealt;
+			player->max_health = 100;
 		}
 		else if (player->client->damageDealt < 150) { // white
 			evoLevel = 1;
 			evoToNext = 150 - player->client->damageDealt;
+			player->max_health = 150;
 		}
 		else if (player->client->damageDealt < 300) { // blue
 			evoLevel = 2;
 			evoToNext = 300 - player->client->damageDealt;
+			player->max_health = 175;
 		}
 		else { // purple
 			evoLevel = 3;
 			evoToNext = -1;
+			player->max_health = 200;
 		}
 
 		// "debug" text
@@ -466,6 +470,10 @@ void G_RunFrame (void)
 			evoToNext
 		);
 		gi.centerprintf(player, "%s\n", text);
+
+		if (player->health < player->max_health) {
+			player->health++;
+		}
 	}
 
 	// see if it is time to end a deathmatch
