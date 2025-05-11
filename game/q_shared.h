@@ -1010,6 +1010,7 @@ typedef enum
 #define STAT_SPECTATOR			17
 #define STAT_LEGEND_OCT			18
 #define STAT_LEGEND_VALK		19
+#define STAT_LEGEND_REV			20
 
 #define	MAX_STATS				32
 

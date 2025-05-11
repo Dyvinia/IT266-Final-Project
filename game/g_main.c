@@ -452,6 +452,20 @@ void G_RunFrame (void)
 			player->max_health = 200;
 		}
 
+		// valk passive
+		if (player->client->legend == 1) {
+			if (player->client->valkfuel > 0 && player->client->ps.pmove.pm_flags & PMF_JUMP_HELD) {
+				player->velocity[2] = 100;
+				player->client->valkfuel -= 1;
+			}
+			else {
+				player->client->valkfuel += 3;
+			}
+			if (player->client->valkfuel > 100) {
+				player->client->valkfuel = 100;
+			}
+		}
+
 		// healing
 		if (player->client->legend == 0 && fmod(level.time, 0.5) == 0.0 && player->health < player->max_health) {
 			player->health++;
@@ -473,6 +487,7 @@ void G_RunFrame (void)
 			"Vel: %.2f, %.2f, %.2f\n"
 			"isSliding: %s\n"
 			"Damage: %d\n"
+			"ValkFuel: %d/100\n"
 			"Evo Lv: %d  Next: %d\n",
 			level.time,
 			speed,
@@ -481,6 +496,7 @@ void G_RunFrame (void)
 			player->velocity[2],
 			isSliding ? "true" : "false",
 			player->client->damageDealt,
+			player->client->valkfuel,
 			evoLevel,
 			evoToNext
 		);

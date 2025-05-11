@@ -524,12 +524,17 @@ void G_SetStats (edict_t *ent)
 	if (ent->client->legend == 0) {
 		ent->client->ps.stats[STAT_LEGEND_OCT] = 1;
 		ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
-		//ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+		ent->client->ps.stats[STAT_LEGEND_REV] = 0;
 	}
 	if (ent->client->legend == 1) {
 		ent->client->ps.stats[STAT_LEGEND_OCT] = 0;
 		ent->client->ps.stats[STAT_LEGEND_VALK] = 1;
-		//ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+		ent->client->ps.stats[STAT_LEGEND_REV] = 0;
+	}
+	if (ent->client->legend == 2) {
+		ent->client->ps.stats[STAT_LEGEND_OCT] = 0;
+		ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+		ent->client->ps.stats[STAT_LEGEND_REV] = 1;
 	}
 }
 

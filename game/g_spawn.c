@@ -716,6 +716,12 @@ char *single_statusbar =
 	"yb -64 "
 	"string2 \"Valkyrie\" "
 "endif "
+// rev
+"if 20 "
+	"xv 32 "
+	"yb -64 "
+	"string2 \"Revenant\" "
+"endif "
 ;
 
 char *dm_statusbar =

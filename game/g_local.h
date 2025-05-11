@@ -965,7 +965,9 @@ struct gclient_s
 
 	int damageDealt;
 
-	int legend; // 0 = octane, 1 = valkyrie
+	int legend; // 0 = octane, 1 = valkyrie, 2 = revenant
+
+	int valkfuel; // out of 100
 };
 
 
