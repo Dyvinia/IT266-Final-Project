@@ -466,6 +466,14 @@ void G_RunFrame (void)
 			}
 		}
 
+		// tac
+		if (player->client->tacpressed && player->client->taccooldown <= 0.0) {
+			if (player->client->legend == 0) { // octane
+				player->client->tacduration = 3.0;
+				player->client->taccooldown = 5.0;
+			}
+		}
+
 		// healing
 		if (player->client->legend == 0 && fmod(level.time, 0.5) == 0.0 && player->health < player->max_health) {
 			player->health++;
@@ -488,19 +496,23 @@ void G_RunFrame (void)
 			"isSliding: %s\n"
 			"Damage: %d\n"
 			"ValkFuel: %d/100\n"
-			"Evo Lv: %d  Next: %d\n",
+			"Evo Lv: %d  Next: %d\n"
+			"Tac Pressed: %s\n"
+			"Duration: %.1f  Cooldown:  %.1f\n",
 			level.time,
 			speed,
-			player->velocity[0],
-			player->velocity[1],
-			player->velocity[2],
+			player->velocity[0], player->velocity[1], player->velocity[2],
 			isSliding ? "true" : "false",
 			player->client->damageDealt,
 			player->client->valkfuel,
-			evoLevel,
-			evoToNext
+			evoLevel, evoToNext,
+			player->client->tacpressed ? "true" : "false", player->client->tacduration, player->client->taccooldown
 		);
 		gi.centerprintf(player, "%s\n", text);
+
+		player->client->tacpressed = false;
+		player->client->tacduration -= FRAMETIME;
+		player->client->taccooldown -= FRAMETIME;
 	}
 
 	// see if it is time to end a deathmatch

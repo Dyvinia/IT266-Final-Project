@@ -915,6 +915,11 @@ void Cmd_Rev_f(edict_t* ent)
 	ent->client->legend = 2;
 }
 
+void Cmd_Tac_f(edict_t* ent)
+{
+	ent->client->tacpressed = true;
+}
+
 
 /*
 =================
@@ -1009,6 +1014,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Valk_f(ent);
 	else if (Q_stricmp(cmd, "rev") == 0 || Q_stricmp(cmd, "revenant") == 0)
 		Cmd_Rev_f(ent);
+	else if (Q_stricmp(cmd, "tac") == 0)
+		Cmd_Tac_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

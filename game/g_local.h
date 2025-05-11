@@ -968,6 +968,11 @@ struct gclient_s
 	int legend; // 0 = octane, 1 = valkyrie, 2 = revenant
 
 	int valkfuel; // out of 100
+
+
+	qboolean tacpressed;
+	float tacduration;
+	float taccooldown;
 };
 
 
