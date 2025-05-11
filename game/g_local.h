@@ -973,6 +973,10 @@ struct gclient_s
 	qboolean tacpressed;
 	float tacduration;
 	float taccooldown;
+	
+	qboolean ultpressed;
+	float ultduration;
+	float ultcooldown;
 };
 
 

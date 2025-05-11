@@ -920,6 +920,11 @@ void Cmd_Tac_f(edict_t* ent)
 	ent->client->tacpressed = true;
 }
 
+void Cmd_Ult_f(edict_t* ent)
+{
+	ent->client->ultpressed = true;
+}
+
 
 /*
 =================
@@ -1016,6 +1021,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Rev_f(ent);
 	else if (Q_stricmp(cmd, "tac") == 0)
 		Cmd_Tac_f(ent);
+	else if (Q_stricmp(cmd, "ult") == 0)
+		Cmd_Ult_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

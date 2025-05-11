@@ -481,6 +481,14 @@ void G_RunFrame (void)
 				player->client->taccooldown = 4.0;
 			}
 		}
+		
+		// ult
+		if (player->client->ultpressed && player->client->ultcooldown <= 0.0) {
+			if (player->client->legend == 0) { // octane
+				player->client->ultduration = 1.0;
+				player->client->ultcooldown = 5.0;
+			}
+		}
 
 		// do tac
 		if (player->client->tacduration > 0.0) {
@@ -501,6 +509,32 @@ void G_RunFrame (void)
 				player->velocity[0] = forward[0] * 600;
 				player->velocity[1] = forward[1] * 600;
 				player->velocity[2] = 300;
+			}
+		}
+
+		// do ult
+		if (player->client->ultduration > 0.0) {
+			if (player->client->legend == 0) { // octane
+				if (player->client->ultduration == 1.0) {
+					// first jump 
+					vec3_t dir;
+					dir[0] = player->velocity[0];
+					dir[1] = player->velocity[1];
+					VectorNormalize(dir);
+					player->velocity[0] = dir[0] * 500;
+					player->velocity[1] = dir[1] * 500;
+					player->velocity[2] = 400;
+				}
+				if (player->client->ultduration < 0.15) {
+					// second jump
+					vec3_t forward, right, up;
+					AngleVectors(player->client->v_angle, forward, right, up);
+					forward[2] = 0;
+					VectorNormalize(forward);
+					player->velocity[0] = forward[0] * (sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]) * 0.75);
+					player->velocity[1] = forward[1] * (sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]) * 0.75);
+					player->velocity[2] = 250;
+				}
 			}
 		}
 
@@ -528,6 +562,8 @@ void G_RunFrame (void)
 			"ValkFuel: %d/100\n"
 			"Evo Lv: %d  Next: %d\n"
 			"Tac Pressed: %s\n"
+			"Duration: %.1f  Cooldown: %.1f\n"
+			"Ult Pressed: %s\n"
 			"Duration: %.1f  Cooldown: %.1f\n",
 			level.time,
 			sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]),
@@ -536,7 +572,8 @@ void G_RunFrame (void)
 			player->client->damageDealt,
 			player->client->valkfuel,
 			evoLevel, evoToNext,
-			player->client->tacpressed ? "true" : "false", player->client->tacduration, player->client->taccooldown
+			player->client->tacpressed ? "true" : "false", player->client->tacduration, player->client->taccooldown,
+			player->client->ultpressed ? "true" : "false", player->client->ultduration, player->client->ultcooldown
 		);
 		gi.centerprintf(player, "%s\n", text);
 
@@ -552,7 +589,17 @@ void G_RunFrame (void)
 			player->client->taccooldown = 0.0;
 		}
 
+		player->client->ultpressed = false;
 
+		player->client->ultduration -= FRAMETIME;
+		player->client->ultcooldown -= FRAMETIME;
+
+		if (player->client->ultduration < 0.0) {
+			player->client->ultduration = 0.0;
+		}
+		if (player->client->ultcooldown < 0.0) {
+			player->client->ultcooldown = 0.0;
+		}
 	}
 
 	// see if it is time to end a deathmatch
