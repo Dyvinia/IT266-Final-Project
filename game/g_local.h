@@ -964,6 +964,8 @@ struct gclient_s
 	qboolean	update_chase;		// need to update chase info?
 
 	int damageDealt;
+
+	int legend; // 0 = octane, 1 = valkyrie
 };
 
 

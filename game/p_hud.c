@@ -520,6 +520,17 @@ void G_SetStats (edict_t *ent)
 		ent->client->ps.stats[STAT_HELPICON] = 0;
 
 	ent->client->ps.stats[STAT_SPECTATOR] = 0;
+
+	if (ent->client->legend == 0) {
+		ent->client->ps.stats[STAT_LEGEND_OCT] = 1;
+		ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+		//ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+	}
+	if (ent->client->legend == 1) {
+		ent->client->ps.stats[STAT_LEGEND_OCT] = 0;
+		ent->client->ps.stats[STAT_LEGEND_VALK] = 1;
+		//ent->client->ps.stats[STAT_LEGEND_VALK] = 0;
+	}
 }
 
 /*

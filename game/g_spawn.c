@@ -701,6 +701,21 @@ char *single_statusbar =
 "	xv	148 "
 "	pic	11 "
 "endif "
+
+// legend
+
+// octane
+"if 18 "
+	"xv 32 "
+	"yb -64 "
+	"string2 \"Octane\" "
+"endif "
+// valk
+"if 19 "
+	"xv 32 "
+	"yb -64 "
+	"string2 \"Valkyrie\" "
+"endif "
 ;
 
 char *dm_statusbar =

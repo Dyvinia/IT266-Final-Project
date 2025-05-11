@@ -452,14 +452,29 @@ void G_RunFrame (void)
 			player->max_health = 200;
 		}
 
+		// healing
+		if (player->client->legend == 0 && fmod(level.time, 0.5) == 0.0 && player->health < player->max_health) {
+			player->health++;
+		}
+		else if (fmod(level.time, 1.0) == 0.0 && player->health < player->max_health) {
+			player->health++;
+		}
+
+		// dont let health go over max
+		if (player->health > player->max_health) {
+			player->health = player->max_health;
+		}
+
 		// "debug" text
 		char text[256];
 		Com_sprintf(text, sizeof(text),
+			"Level Time: %.2f\n"
 			"Speed: %.2f\n"
 			"Vel: %.2f, %.2f, %.2f\n"
 			"isSliding: %s\n"
 			"Damage: %d\n"
 			"Evo Lv: %d  Next: %d\n",
+			level.time,
 			speed,
 			player->velocity[0],
 			player->velocity[1],
@@ -470,10 +485,6 @@ void G_RunFrame (void)
 			evoToNext
 		);
 		gi.centerprintf(player, "%s\n", text);
-
-		if (player->health < player->max_health) {
-			player->health++;
-		}
 	}
 
 	// see if it is time to end a deathmatch
