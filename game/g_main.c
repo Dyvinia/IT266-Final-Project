@@ -472,6 +472,36 @@ void G_RunFrame (void)
 				player->client->tacduration = 3.0;
 				player->client->taccooldown = 5.0;
 			}
+			else if (player->client->legend == 1) { // valkyrie
+				player->client->tacduration = 2.0;
+				player->client->taccooldown = 4.0;
+			}
+			else if (player->client->legend == 2) { // rev
+				player->client->tacduration = 0.1;
+				player->client->taccooldown = 4.0;
+			}
+		}
+
+		// do tac
+		if (player->client->tacduration > 0.0) {
+			if (player->client->legend == 1 && fmod((level.time), 0.5) == 0.0) { // valk
+				vec3_t forward, right, up, start;
+				AngleVectors(player->client->v_angle, forward, right, up);
+				VectorScale(forward, 32, start);
+				start[2] += player->viewheight + 8;
+				start[1] -= 12;
+				VectorAdd(player->s.origin, start, start);
+				fire_rocket(player, start, forward, 25, 650, 100, 25);
+			}
+			if (player->client->legend == 2) { // rev
+				vec3_t forward, right, up;
+				AngleVectors(player->client->v_angle, forward, right, up);
+				forward[2] = 0;
+				VectorNormalize(forward);
+				player->velocity[0] = forward[0] * 600;
+				player->velocity[1] = forward[1] * 600;
+				player->velocity[2] = 300;
+			}
 		}
 
 		// healing
@@ -498,9 +528,9 @@ void G_RunFrame (void)
 			"ValkFuel: %d/100\n"
 			"Evo Lv: %d  Next: %d\n"
 			"Tac Pressed: %s\n"
-			"Duration: %.1f  Cooldown:  %.1f\n",
+			"Duration: %.1f  Cooldown: %.1f\n",
 			level.time,
-			speed,
+			sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]),
 			player->velocity[0], player->velocity[1], player->velocity[2],
 			isSliding ? "true" : "false",
 			player->client->damageDealt,
@@ -511,8 +541,18 @@ void G_RunFrame (void)
 		gi.centerprintf(player, "%s\n", text);
 
 		player->client->tacpressed = false;
+
 		player->client->tacduration -= FRAMETIME;
 		player->client->taccooldown -= FRAMETIME;
+
+		if (player->client->tacduration < 0.0) {
+			player->client->tacduration = 0.0;
+		}
+		if (player->client->taccooldown < 0.0) {
+			player->client->taccooldown = 0.0;
+		}
+
+
 	}
 
 	// see if it is time to end a deathmatch

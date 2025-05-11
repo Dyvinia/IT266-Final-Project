@@ -1582,6 +1582,12 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		ucmd->sidemove = 0;
 	}
 
+	// octane stim
+	if (client->legend == 0 && client->tacduration > 0.0) {
+		ucmd->forwardmove *= 2.5;
+		ucmd->sidemove *= 2.5;
+	}
+
 	if (level.intermissiontime)
 	{
 		client->ps.pmove.pm_type = PM_FREEZE;
