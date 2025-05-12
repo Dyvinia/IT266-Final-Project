@@ -1178,15 +1178,17 @@ void Weapon_Nemesis_Fire(edict_t* ent)
 
 void Weapon_Mastiff_Fire(edict_t* ent)
 {
-	float coords[5][2] = {
-		{-0.05, 0},
-		{-0.025, 0},
+	float coords[7][2] = {
+		{-0.06, 0},
+		{-0.04, 0},
+		{-0.02, 0},
 		{0, 0},
-		{0.025, 0},
-		{0.05, 0}
+		{0.02, 0},
+		{0.04, 0},
+		{0.06, 0}
 	};
 	
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 7; i++) {
 		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1], 3, 1400);
 	}
 	ent->client->ps.gunframe++;
@@ -1209,7 +1211,7 @@ void Weapon_Peacekeeper_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 11; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004, 4, 1600);
+		ApexBulletPattern_Fire(ent, vec3_origin, 7, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004, 4, 1600);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1257,7 +1259,7 @@ void Weapon_TTake_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 3; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 14, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2, 2100);
+		ApexBulletPattern_Fire(ent, vec3_origin, 15, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2, 2100);
 	}
 	ent->client->ps.gunframe++;
 }
