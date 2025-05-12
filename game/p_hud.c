@@ -329,9 +329,9 @@ void HelpComputer (edict_t *ent)
 		"Base Movement",
 		"Shift: Sprint   Slide: Ctrl",
 		"Legends",
-		"Octane: Enhanced Healing - Stim[Q] - Jump Pad[Z]",
-		"Rev: Shadow Healing - Pounce[Q] - Forged Shadows[Z]",
-		"Valkyrie: Jetpack - Missile Swarm[Q] - Flight Core[Z]",
+		"Octane[oct]: Enhanced Healing - Stim[Q] - Jump Pad[Z]",
+		"Revenant[rev]: Shadow Healing - Pounce[Q] - Forged Shadows[Z]",
+		"Valkyrie[valk]: Jetpack - Missile Swarm[Q] - Flight Core[Z]",
 		"Guns",
 		"P2020, R-301, Flatline, Nemesis, Havoc,",
 		"Mastiff, Peacekeeper, EVA-8, Mozambique, Triple Take");
