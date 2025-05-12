@@ -1357,7 +1357,7 @@ always owned, never in the world
 		"models/weapons/g_machn/tris.md2", EF_ROTATE,
 		"models/weapons/v_machn/tris.md2",
 /* icon */		"w_machinegun",
-/* pickup */	"Triple Take",
+/* pickup */	"TripleTake",
 		0,
 		1,
 		"Bullets",

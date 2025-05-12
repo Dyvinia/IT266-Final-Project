@@ -1244,7 +1244,7 @@ void Weapon_Mozam_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 3; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 8, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2, 1400);
+		ApexBulletPattern_Fire(ent, vec3_origin, 7, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2, 1400);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1259,7 +1259,7 @@ void Weapon_TTake_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 3; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 15, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2, 2100);
+		ApexBulletPattern_Fire(ent, vec3_origin, 12, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 4, 2100);
 	}
 	ent->client->ps.gunframe++;
 }
