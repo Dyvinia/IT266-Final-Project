@@ -22,16 +22,16 @@ Tactical [Q]: Missile Swarm
 Ultimate [Z]: Flight Core
 
 ## Guns
-P2020 - Basic Pistol
-R-301 - Light AR
-Flatline - Heavy AR
-Nemesis - Burst AR
-Havoc - Energy AR with Windup
-Mastiff - Horizontal spread Shotgun
-Peacekeeper - Heavy Shotgun
-EVA-8 - Auto Shotgun
-Mozambique - Shotgun Pistol
-Triple Take - Triple shot Marksman
+**P2020** - Basic Pistol  
+**R-301** - Light AR  
+**Flatline** - Heavy AR  
+**Nemesis** - Burst AR  
+**Havoc** - Energy AR with Windup  
+**Mastiff** - Horizontal spread Shotgun  
+**Peacekeeper** - Heavy Shotgun  
+**EVA-8** - Auto Shotgun  
+**Mozambique** - Shotgun Pistol  
+**Triple Take** - Triple shot Marksman
 
 ## Movement
 Sprinting [Shift]  
