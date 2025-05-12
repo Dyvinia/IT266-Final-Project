@@ -38,6 +38,7 @@ void Weapon_BFG (edict_t *ent);
 void Weapon_R301 (edict_t *ent);
 void Weapon_Flatline(edict_t *ent);
 void Weapon_Nemesis(edict_t *ent);
+void Weapon_Havoc(edict_t *ent);
 void Weapon_Mastiff(edict_t *ent);
 void Weapon_Peacekeeper(edict_t *ent);
 void Weapon_Eva(edict_t *ent);
@@ -1235,6 +1236,27 @@ always owned, never in the world
 		"Bullets",
 		IT_WEAPON|IT_STAY_COOP,
 		WEAP_NEMESIS,
+		NULL,
+		0,
+/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
+	},
+
+	{
+		"weapon_havoc", 
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Havoc,
+		"misc/w_pkup.wav",
+		"models/weapons/g_machn/tris.md2", EF_ROTATE,
+		"models/weapons/v_machn/tris.md2",
+/* icon */		"w_machinegun",
+/* pickup */	"Havoc",
+		0,
+		1,
+		"Bullets",
+		IT_WEAPON|IT_STAY_COOP,
+		WEAP_HAVOC,
 		NULL,
 		0,
 /* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"

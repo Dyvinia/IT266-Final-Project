@@ -1161,12 +1161,12 @@ void ApexBulletAuto_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyp
 
 void Weapon_R301_Fire(edict_t* ent)
 {
-	ApexBulletAuto_Fire(ent, vec3_origin, 5, false, NULL, 8, 1, 0.7, true);
+	ApexBulletAuto_Fire(ent, vec3_origin, 5, false, NULL, 8, 0, 0.7, true);
 }
 
 void Weapon_Flatline_Fire(edict_t* ent)
 {
-	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, NULL, 2, 2, 1.1, true);
+	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, NULL, 1, 1, 1.1, true);
 }
 
 
@@ -1187,7 +1187,7 @@ void Weapon_Mastiff_Fire(edict_t* ent)
 	};
 	
 	for (int i = 0; i < 5; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1], 2);
+		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1], 3);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1209,7 +1209,7 @@ void Weapon_Peacekeeper_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 11; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004, 3);
+		ApexBulletPattern_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004, 4);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1242,7 +1242,7 @@ void Weapon_Mozam_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 3; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 8, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 1);
+		ApexBulletPattern_Fire(ent, vec3_origin, 8, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 2);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1269,6 +1269,14 @@ void Weapon_Nemesis(edict_t* ent)
 	static int	fire_frames[] = { 5, 6, 7, 8, 0 };
 
 	Weapon_Generic(ent, 4, 10, 45, 49, pause_frames, fire_frames, Weapon_Nemesis_Fire);
+}
+
+void Weapon_Havoc(edict_t* ent)
+{
+	static int	pause_frames[] = { 23, 45, 0 };
+	static int	fire_frames[] = { 4, 5, 0 };
+
+	Weapon_Generic(ent, 0, 5, 45, 49, pause_frames, fire_frames, Weapon_R301_Fire);
 }
 
 void Weapon_Mastiff(edict_t* ent)
