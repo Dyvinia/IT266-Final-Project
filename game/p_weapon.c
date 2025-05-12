@@ -1044,7 +1044,7 @@ void Weapon_Machinegun (edict_t *ent)
 	Weapon_Generic (ent, 3, 5, 45, 49, pause_frames, fire_frames, Machinegun_Fire);
 }
 
-void ApexBulletSetDir_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyper, int effect, float x, float y)
+void ApexBulletSetDir_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyper, int effect, float x, float y, int kick)
 {
 	vec3_t	forward, right, up;
 	vec3_t	start;
@@ -1062,7 +1062,7 @@ void ApexBulletSetDir_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean h
 	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	VectorScale(forward, -2, ent->client->kick_origin);
-	ent->client->kick_angles[0] = -1;
+	ent->client->kick_angles[0] = -1 * kick;
 
 	fire_blaster(ent, start, forward, damage, 2000, effect, hyper);
 
@@ -1187,7 +1187,7 @@ void Weapon_Mastiff_Fire(edict_t* ent)
 	};
 	
 	for (int i = 0; i < 5; i++) {
-		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1]);
+		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1], 2);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1209,7 +1209,26 @@ void Weapon_Peacekeeper_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 11; i++) {
-		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004);
+		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004, 3);
+	}
+	ent->client->ps.gunframe++;
+}
+
+void Weapon_Eva_Fire(edict_t* ent)
+{
+	float coords[8][2] = {
+		{-7.0, 7.0},
+		{0.0, 11.0},
+		{7.0, 7.0},
+		{-3.5, 0.0},
+		{3.5, 0.0},
+		{-7.0, -7.0},
+		{0.0, -11.0},
+		{7.0, -7.0}
+	};
+
+	for (int i = 0; i < 8; i++) {
+		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 1);
 	}
 	ent->client->ps.gunframe++;
 }
@@ -1252,6 +1271,14 @@ void Weapon_Peacekeeper(edict_t* ent)
 	static int    fire_frames[] = { 7, 0 };
 
 	Weapon_Generic(ent, 6, 19, 36, 39, pause_frames, fire_frames, Weapon_Peacekeeper_Fire);
+}
+
+void Weapon_Eva(edict_t* ent)
+{
+	static int    pause_frames[] = { 9, 29, 42, 57, 0 };
+	static int    fire_frames[] = { 7, 0 };
+
+	Weapon_Generic(ent, 6, 9, 36, 39, pause_frames, fire_frames, Weapon_Eva_Fire);
 }
 
 void Chaingun_Fire (edict_t *ent)

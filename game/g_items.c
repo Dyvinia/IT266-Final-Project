@@ -40,6 +40,7 @@ void Weapon_Flatline(edict_t *ent);
 void Weapon_Nemesis(edict_t *ent);
 void Weapon_Mastiff(edict_t *ent);
 void Weapon_Peacekeeper(edict_t *ent);
+void Weapon_Eva(edict_t *ent);
 
 gitem_armor_t jacketarmor_info	= { 25,  50, .30, .00, ARMOR_JACKET};
 gitem_armor_t combatarmor_info	= { 50, 100, .60, .30, ARMOR_COMBAT};
@@ -1275,6 +1276,27 @@ always owned, never in the world
 		"Shells",
 		IT_WEAPON|IT_STAY_COOP,
 		WEAP_PEACEKEEPER,
+		NULL,
+		0,
+/* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
+	},
+
+	{
+		"weapon_eva", 
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_Eva,
+		"misc/w_pkup.wav",
+		"models/weapons/g_shotg/tris.md2", EF_ROTATE,
+		"models/weapons/v_shotg/tris.md2",
+/* icon */		"w_shotgun",
+/* pickup */	"EVA-8",
+		0,
+		1,
+		"Shells",
+		IT_WEAPON|IT_STAY_COOP,
+		WEAP_EVA,
 		NULL,
 		0,
 /* precache */ "weapons/shotgf1b.wav weapons/shotgr1b.wav"
