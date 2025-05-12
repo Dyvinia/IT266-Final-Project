@@ -852,7 +852,7 @@ void Weapon_Blaster_Fire (edict_t *ent)
 		damage = 15;
 	else
 		damage = 10;
-	Blaster_Fire (ent, vec3_origin, damage, false, EF_BLASTER);
+	Blaster_Fire (ent, vec3_origin, damage, false, NULL);
 	ent->client->ps.gunframe++;
 }
 
@@ -1143,8 +1143,8 @@ void ApexBulletAuto_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyp
 
 	PlayerNoise(ent, start, PNOISE_WEAPON);
 
-	if (!((int)dmflags->value & DF_INFINITE_AMMO))
-		ent->client->pers.inventory[ent->client->ammo_index]--;
+	//if (!((int)dmflags->value & DF_INFINITE_AMMO))
+		//ent->client->pers.inventory[ent->client->ammo_index]--;
 
 	ent->client->anim_priority = ANIM_ATTACK;
 	if (ent->client->ps.pmove.pm_flags & PMF_DUCKED)
@@ -1161,18 +1161,18 @@ void ApexBulletAuto_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyp
 
 void Weapon_R301_Fire(edict_t* ent)
 {
-	ApexBulletAuto_Fire(ent, vec3_origin, 5, false, EF_BLASTER, 8, 1, 0.7, true);
+	ApexBulletAuto_Fire(ent, vec3_origin, 5, false, NULL, 8, 1, 0.7, true);
 }
 
 void Weapon_Flatline_Fire(edict_t* ent)
 {
-	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, EF_BLASTER, 2, 2, 1.1, true);
+	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, NULL, 2, 2, 1.1, true);
 }
 
 
 void Weapon_Nemesis_Fire(edict_t* ent)
 {
-	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, EF_BLASTER, 0, 2, 1.1, false);
+	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, NULL, 0, 2, 1.1, false);
 	ent->client->ps.gunframe++;
 }
 
@@ -1228,7 +1228,7 @@ void Weapon_Eva_Fire(edict_t* ent)
 	};
 
 	for (int i = 0; i < 8; i++) {
-		ApexBulletPattern_Fire(ent, vec3_origin, 4, false, EF_BLASTER, coords[i][0] * 0.003, coords[i][1] * 0.003, 1);
+		ApexBulletPattern_Fire(ent, vec3_origin, 4, false, NULL, coords[i][0] * 0.003, coords[i][1] * 0.003, 1);
 	}
 	ent->client->ps.gunframe++;
 }
