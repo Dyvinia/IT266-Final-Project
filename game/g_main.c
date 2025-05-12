@@ -488,6 +488,11 @@ void G_RunFrame (void)
 				player->client->ultduration = 1.0;
 				player->client->ultcooldown = 5.0;
 			}
+			if (player->client->legend == 1) { // valk
+				player->client->ultduration = 5.0;
+				player->client->ultcooldown = 6.0;
+				player->velocity[2] = 300;
+			}
 		}
 
 		// do tac
@@ -534,6 +539,27 @@ void G_RunFrame (void)
 					player->velocity[0] = forward[0] * (sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]) * 0.75);
 					player->velocity[1] = forward[1] * (sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]) * 0.75);
 					player->velocity[2] = 250;
+				}
+			}
+			if (player->client->legend == 1) { // valk
+				if (player->velocity[2] <= 70) {
+					player->velocity[2] = 70;
+				}
+				if (fmod((level.time), 0.5) == 0.0) {
+					vec3_t forward, right, up, start;
+					AngleVectors(player->client->v_angle, forward, right, up);
+					VectorScale(forward, 32, start);
+					start[2] += player->viewheight + 12;
+					start[1] -= 16;
+					VectorAdd(player->s.origin, start, start);
+					fire_rocket(player, start, forward, 25, 650, 250, 25);
+					
+					AngleVectors(player->client->v_angle, forward, right, up);
+					VectorScale(forward, 32, start);
+					start[2] += player->viewheight + 12;
+					start[1] += 16;
+					VectorAdd(player->s.origin, start, start);
+					fire_rocket(player, start, forward, 25, 650, 250, 25);
 				}
 			}
 		}
