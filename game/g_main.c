@@ -493,6 +493,10 @@ void G_RunFrame (void)
 				player->client->ultcooldown = 6.0;
 				player->velocity[2] = 300;
 			}
+			if (player->client->legend == 1) { // rev
+				player->client->ultcooldown = 6.0;
+				player->health = player->max_health;
+			}
 		}
 
 		// do tac
