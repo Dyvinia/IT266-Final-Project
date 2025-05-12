@@ -38,6 +38,7 @@ void Weapon_BFG (edict_t *ent);
 void Weapon_R301 (edict_t *ent);
 void Weapon_Flatline(edict_t *ent);
 void Weapon_Nemesis(edict_t *ent);
+void Weapon_Mastiff(edict_t *ent);
 
 gitem_armor_t jacketarmor_info	= { 25,  50, .30, .00, ARMOR_JACKET};
 gitem_armor_t combatarmor_info	= { 50, 100, .60, .30, ARMOR_COMBAT};
@@ -1239,16 +1240,16 @@ always owned, never in the world
 /*QUAKED weapon_shotgun (.3 .3 1) (-16 -16 -16) (16 16 16)
 */
 	{
-		"weapon_shotgun", 
+		"weapon_mastiff", 
 		Pickup_Weapon,
 		Use_Weapon,
 		Drop_Weapon,
-		Weapon_Shotgun,
+		Weapon_Mastiff,
 		"misc/w_pkup.wav",
 		"models/weapons/g_shotg/tris.md2", EF_ROTATE,
 		"models/weapons/v_shotg/tris.md2",
 /* icon */		"w_shotgun",
-/* pickup */	"Shotgun",
+/* pickup */	"Mastiff",
 		0,
 		1,
 		"Shells",

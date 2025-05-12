@@ -1044,6 +1044,40 @@ void Weapon_Machinegun (edict_t *ent)
 	Weapon_Generic (ent, 3, 5, 45, 49, pause_frames, fire_frames, Machinegun_Fire);
 }
 
+void ApexBulletSetDir_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyper, int effect, float x, float y)
+{
+	vec3_t	forward, right, up;
+	vec3_t	start;
+	vec3_t	offset;
+
+
+	AngleVectors(ent->client->v_angle, forward, right, up);
+
+	VectorMA(forward, x, right, forward);
+	VectorMA(forward, y, up, forward);
+	VectorNormalize(forward);
+
+	VectorSet(offset, 24, 8, ent->viewheight - 8);
+	VectorAdd(offset, g_offset, offset);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
+
+	VectorScale(forward, -2, ent->client->kick_origin);
+	ent->client->kick_angles[0] = -1;
+
+	fire_blaster(ent, start, forward, damage, 2000, effect, hyper);
+
+	// send muzzle flash
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
+	if (hyper)
+		gi.WriteByte(MZ_HYPERBLASTER | is_silenced);
+	else
+		gi.WriteByte(MZ_BLASTER | is_silenced);
+	gi.multicast(ent->s.origin, MULTICAST_PVS);
+
+	PlayerNoise(ent, start, PNOISE_WEAPON);
+}
+
 void ApexBulletAuto_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyper, int effect, int riseShots, int startRise, float spread, qboolean useGunframe)
 {
 	int	i;
@@ -1138,10 +1172,23 @@ void Weapon_Flatline_Fire(edict_t* ent)
 
 void Weapon_Nemesis_Fire(edict_t* ent)
 {
-	//Blaster_Fire(ent, vec3_origin, 7, false, EF_BLASTER);
-	//ent->client->ps.gunframe++;
-
 	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, EF_BLASTER, 0, 2, 1.1, false);
+	ent->client->ps.gunframe++;
+}
+
+void Weapon_Mastiff_Fire(edict_t* ent)
+{
+	float coords[5][2] = {
+		{-0.05, 0},
+		{-0.025, 0},
+		{0, 0},
+		{0.025, 0},
+		{0.05, 0}
+	};
+	
+	for (int i = 0; i < 5; i++) {
+		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0], coords[i][1]);
+	}
 	ent->client->ps.gunframe++;
 }
 
@@ -1167,6 +1214,14 @@ void Weapon_Nemesis(edict_t* ent)
 	static int	fire_frames[] = { 5, 6, 7, 8, 0 };
 
 	Weapon_Generic(ent, 4, 10, 45, 49, pause_frames, fire_frames, Weapon_Nemesis_Fire);
+}
+
+void Weapon_Mastiff(edict_t* ent)
+{
+	static int    pause_frames[] = { 29, 42, 57, 0 };
+	static int    fire_frames[] = { 7, 0 };
+
+	Weapon_Generic(ent, 6, 17, 36, 39, pause_frames, fire_frames, Weapon_Mastiff_Fire);
 }
 
 void Chaingun_Fire (edict_t *ent)
