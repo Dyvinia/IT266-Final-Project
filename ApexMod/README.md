@@ -33,10 +33,7 @@ Ultimate [Z]: Flight Core
 **Mozambique** - Shotgun Pistol  
 **Triple Take** - Triple shot Marksman
 
-## Movement
-Sprinting [Shift]  
-Pressing Shift while walking forwards allows you to sprint
-
+## New Base Movement
 Sliding [Ctrl]  
 Pressing Crouch while sprinting lets you slide
 
