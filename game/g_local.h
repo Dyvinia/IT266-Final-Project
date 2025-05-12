@@ -231,9 +231,12 @@ typedef struct
 #define WEAP_RAILGUN			10
 #define WEAP_BFG				11
 
-#define WEAP_R301				12
-#define WEAP_FLATLINE			13
-#define WEAP_NEMESIS			13
+#define WEAP_P2020				12
+#define WEAP_R301				13
+#define WEAP_FLATLINE			14
+#define WEAP_NEMESIS			15
+#define WEAP_MASTIFF			16
+#define WEAP_PEACEKEEPER		17
 
 typedef struct gitem_s
 {

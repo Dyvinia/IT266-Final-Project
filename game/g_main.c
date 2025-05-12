@@ -582,7 +582,7 @@ void G_RunFrame (void)
 		}
 
 		// "debug" text
-		char text[256];
+		char text[512];
 		Com_sprintf(text, sizeof(text),
 			"Level Time: %.2f\n"
 			"Speed: %.2f\n"

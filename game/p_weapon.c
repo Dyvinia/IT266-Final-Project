@@ -1192,6 +1192,28 @@ void Weapon_Mastiff_Fire(edict_t* ent)
 	ent->client->ps.gunframe++;
 }
 
+void Weapon_Peacekeeper_Fire(edict_t* ent)
+{
+	float coords[11][2] = {
+		{0.0, 0.0},
+		{0.0, 13.75},
+		{-9.4, 5.4},
+		{9.4, 5.4},
+		{-8.75, -9.4},
+		{8.75, -9.4},
+		{0.0, 7.5},
+		{-4.35, 3.75},
+		{4.35, 3.75},
+		{-4.35, -4.3},
+		{4.35, -4.35}
+	};
+
+	for (int i = 0; i < 11; i++) {
+		ApexBulletSetDir_Fire(ent, vec3_origin, 6, false, EF_BLASTER, coords[i][0] * 0.004, coords[i][1] * 0.004);
+	}
+	ent->client->ps.gunframe++;
+}
+
 void Weapon_R301 (edict_t *ent)
 {
 	static int	pause_frames[]	= {23, 45, 0};
@@ -1221,7 +1243,15 @@ void Weapon_Mastiff(edict_t* ent)
 	static int    pause_frames[] = { 29, 42, 57, 0 };
 	static int    fire_frames[] = { 7, 0 };
 
-	Weapon_Generic(ent, 6, 17, 36, 39, pause_frames, fire_frames, Weapon_Mastiff_Fire);
+	Weapon_Generic(ent, 6, 15, 36, 39, pause_frames, fire_frames, Weapon_Mastiff_Fire);
+}
+
+void Weapon_Peacekeeper(edict_t* ent)
+{
+	static int    pause_frames[] = { 29, 42, 57, 0 };
+	static int    fire_frames[] = { 7, 0 };
+
+	Weapon_Generic(ent, 6, 19, 36, 39, pause_frames, fire_frames, Weapon_Peacekeeper_Fire);
 }
 
 void Chaingun_Fire (edict_t *ent)
