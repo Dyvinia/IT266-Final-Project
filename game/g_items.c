@@ -43,6 +43,7 @@ void Weapon_Mastiff(edict_t *ent);
 void Weapon_Peacekeeper(edict_t *ent);
 void Weapon_Eva(edict_t *ent);
 void Weapon_Mozam(edict_t *ent);
+void Weapon_TTake(edict_t *ent);
 
 gitem_armor_t jacketarmor_info	= { 25,  50, .30, .00, ARMOR_JACKET};
 gitem_armor_t combatarmor_info	= { 50, 100, .60, .30, ARMOR_COMBAT};
@@ -1344,6 +1345,27 @@ always owned, never in the world
 		NULL,
 		0,
 /* precache */ "weapons/blastf1a.wav misc/lasfly.wav"
+	},
+
+	{
+		"weapon_ttake", 
+		Pickup_Weapon,
+		Use_Weapon,
+		Drop_Weapon,
+		Weapon_TTake,
+		"misc/w_pkup.wav",
+		"models/weapons/g_machn/tris.md2", EF_ROTATE,
+		"models/weapons/v_machn/tris.md2",
+/* icon */		"w_machinegun",
+/* pickup */	"Triple Take",
+		0,
+		1,
+		"Bullets",
+		IT_WEAPON|IT_STAY_COOP,
+		WEAP_TTAKE,
+		NULL,
+		0,
+/* precache */ "weapons/machgf1b.wav weapons/machgf2b.wav weapons/machgf3b.wav weapons/machgf4b.wav weapons/machgf5b.wav"
 	},
 
 /*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16)

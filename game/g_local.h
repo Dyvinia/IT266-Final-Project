@@ -240,6 +240,7 @@ typedef struct
 #define WEAP_PEACEKEEPER		18
 #define WEAP_EVA				19
 #define WEAP_MOZAM				20
+#define WEAP_TTAKE				21
 
 typedef struct gitem_s
 {
