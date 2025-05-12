@@ -594,7 +594,8 @@ void G_RunFrame (void)
 			"Tac Pressed: %s\n"
 			"Duration: %.1f  Cooldown: %.1f\n"
 			"Ult Pressed: %s\n"
-			"Duration: %.1f  Cooldown: %.1f\n",
+			"Duration: %.1f  Cooldown: %.1f\n"
+			"Weapon: %s (%s)\n",
 			level.time,
 			sqrtf(player->velocity[0] * player->velocity[0] + player->velocity[1] * player->velocity[1]),
 			player->velocity[0], player->velocity[1], player->velocity[2],
@@ -603,7 +604,9 @@ void G_RunFrame (void)
 			player->client->valkfuel,
 			evoLevel, evoToNext,
 			player->client->tacpressed ? "true" : "false", player->client->tacduration, player->client->taccooldown,
-			player->client->ultpressed ? "true" : "false", player->client->ultduration, player->client->ultcooldown
+			player->client->ultpressed ? "true" : "false", player->client->ultduration, player->client->ultcooldown,
+			player->client->pers.weapon ? player->client->pers.weapon->pickup_name : "none",
+			player->client->pers.weapon ? player->client->pers.weapon->classname : "none"
 		);
 		gi.centerprintf(player, "%s\n", text);
 

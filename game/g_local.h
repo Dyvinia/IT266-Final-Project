@@ -231,6 +231,10 @@ typedef struct
 #define WEAP_RAILGUN			10
 #define WEAP_BFG				11
 
+#define WEAP_R301				12
+#define WEAP_FLATLINE			13
+#define WEAP_NEMESIS			13
+
 typedef struct gitem_s
 {
 	char		*classname;	// spawning name

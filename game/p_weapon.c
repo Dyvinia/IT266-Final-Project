@@ -156,7 +156,7 @@ qboolean Pickup_Weapon (edict_t *ent, edict_t *other)
 
 	if (other->client->pers.weapon != ent->item && 
 		(other->client->pers.inventory[index] == 1) &&
-		( !deathmatch->value || other->client->pers.weapon == FindItem("blaster") ) )
+		( !deathmatch->value || other->client->pers.weapon == FindItem("P2020") ) )
 		other->client->newweapon = ent->item;
 
 	return true;
@@ -829,7 +829,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	fire_blaster (ent, start, forward, damage, 2000, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -861,7 +861,7 @@ void Weapon_Blaster (edict_t *ent)
 	static int	pause_frames[]	= {19, 32, 0};
 	static int	fire_frames[]	= {5, 0};
 
-	Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+	Weapon_Generic (ent, 4, 6, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
 
 
@@ -1042,6 +1042,131 @@ void Weapon_Machinegun (edict_t *ent)
 	static int	fire_frames[]	= {4, 5, 0};
 
 	Weapon_Generic (ent, 3, 5, 45, 49, pause_frames, fire_frames, Machinegun_Fire);
+}
+
+void ApexBulletAuto_Fire(edict_t* ent, vec3_t g_offset, int damage, qboolean hyper, int effect, int riseShots, int startRise, float spread, qboolean useGunframe)
+{
+	int	i;
+	vec3_t		start;
+	vec3_t		forward, right;
+	vec3_t		angles;
+	int			kick = 2;
+	vec3_t		offset;
+
+	if (!(ent->client->buttons & BUTTON_ATTACK))
+	{
+		ent->client->machinegun_shots = 0;
+		ent->client->ps.gunframe++;
+		return;
+	}
+
+	if (useGunframe) {
+		if (ent->client->ps.gunframe == 5)
+			ent->client->ps.gunframe = 4;
+		else
+			ent->client->ps.gunframe = 5;
+	}
+
+	if (ent->client->pers.inventory[ent->client->ammo_index] < 1)
+	{
+		ent->client->ps.gunframe = 6;
+		if (level.time >= ent->pain_debounce_time)
+		{
+			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"), 1, ATTN_NORM, 0);
+			ent->pain_debounce_time = level.time + 1;
+		}
+		//NoAmmoWeaponChange(ent);
+		return;
+	}
+
+	for (i = 1; i < 3; i++)
+	{
+		ent->client->kick_origin[i] = crandom() * 0.35;
+		ent->client->kick_angles[i] = crandom() * spread;
+	}
+	ent->client->kick_origin[0] = crandom() * 0.35;
+	ent->client->kick_angles[0] = (ent->client->machinegun_shots + startRise) * -0.5;
+
+	// raise the gun as it is firing
+	if (!deathmatch->value)
+	{
+		ent->client->machinegun_shots++;
+		if (ent->client->machinegun_shots > riseShots)
+			ent->client->machinegun_shots = riseShots;
+	}
+
+	// get start / end positions
+	VectorAdd(ent->client->v_angle, ent->client->kick_angles, angles);
+	AngleVectors(angles, forward, right, NULL);
+	VectorSet(offset, 0, 8, ent->viewheight - 8);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
+	fire_blaster(ent, start, forward, damage, 2000, effect, hyper);
+
+	gi.WriteByte(svc_muzzleflash);
+	gi.WriteShort(ent - g_edicts);
+	gi.WriteByte(MZ_MACHINEGUN | is_silenced);
+	gi.multicast(ent->s.origin, MULTICAST_PVS);
+
+	PlayerNoise(ent, start, PNOISE_WEAPON);
+
+	if (!((int)dmflags->value & DF_INFINITE_AMMO))
+		ent->client->pers.inventory[ent->client->ammo_index]--;
+
+	ent->client->anim_priority = ANIM_ATTACK;
+	if (ent->client->ps.pmove.pm_flags & PMF_DUCKED)
+	{
+		ent->s.frame = FRAME_crattak1 - (int)(random() + 0.25);
+		ent->client->anim_end = FRAME_crattak9;
+	}
+	else
+	{
+		ent->s.frame = FRAME_attack1 - (int)(random() + 0.25);
+		ent->client->anim_end = FRAME_attack8;
+	}
+}
+
+void Weapon_R301_Fire(edict_t* ent)
+{
+	ApexBulletAuto_Fire(ent, vec3_origin, 5, false, EF_BLASTER, 8, 1, 0.7, true);
+}
+
+void Weapon_Flatline_Fire(edict_t* ent)
+{
+	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, EF_BLASTER, 2, 2, 1.1, true);
+}
+
+
+void Weapon_Nemesis_Fire(edict_t* ent)
+{
+	//Blaster_Fire(ent, vec3_origin, 7, false, EF_BLASTER);
+	//ent->client->ps.gunframe++;
+
+	ApexBulletAuto_Fire(ent, vec3_origin, 8, false, EF_BLASTER, 0, 2, 1.1, false);
+	ent->client->ps.gunframe++;
+}
+
+void Weapon_R301 (edict_t *ent)
+{
+	static int	pause_frames[]	= {23, 45, 0};
+	static int	fire_frames[]	= {4, 5, 0};
+
+	Weapon_Generic (ent, 3, 5, 45, 49, pause_frames, fire_frames, Weapon_R301_Fire);
+}
+
+void Weapon_Flatline(edict_t* ent)
+{
+	static int	pause_frames[] = { 23, 45, 0 };
+	static int	fire_frames[] = { 4, 6, 0 };
+
+	Weapon_Generic(ent, 3, 6, 45, 49, pause_frames, fire_frames, Weapon_Flatline_Fire);
+}
+
+void Weapon_Nemesis(edict_t* ent)
+{
+	static int	pause_frames[] = { 23, 45, 0 };
+	static int	fire_frames[] = { 5, 6, 7, 8, 0 };
+
+	Weapon_Generic(ent, 4, 10, 45, 49, pause_frames, fire_frames, Weapon_Nemesis_Fire);
 }
 
 void Chaingun_Fire (edict_t *ent)
